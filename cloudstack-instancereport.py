@@ -12,8 +12,11 @@ import time
 import socket
 import os
 import sys, getopt, argparse
-from elasticsearch import Elasticsearch
-from elasticsearch.helpers import bulk
+try:
+    from elasticsearch import Elasticsearch
+    from elasticsearch.helpers import bulk
+except ImportError:
+    print "It look like elasticsearch-py isn't installed. Please install it using pip install elasticsearch>=1.0.0,<2.0.0 or pip install elasticsearch<1.0.0. See http://elasticsearch-py.readthedocs.org/en/latest/ for more info"
 try:       
     from raven import Client
 except ImportError:
