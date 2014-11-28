@@ -157,6 +157,7 @@ def get_stats(args):
                     'properties': {
                         'account': {
                             'type': 'string'
+                            'index': 'not_analyzed'
                             },
                         'id': {
                             'type': 'string',
@@ -172,12 +173,15 @@ def get_stats(args):
                             },
                         'displayname': {
                             'type': 'string'
+                            'index': 'not_analyzed'
                             },
                         'hostname': {
                             'type': 'string'
+                            'index': 'not_analyzed'
                             },
                         'instancename': {
                             'type': 'string'
+                            'index': 'not_analyzed'
                             },
                         'memory': {
                             'type': 'string',
@@ -185,6 +189,7 @@ def get_stats(args):
                             },
                         'name': {
                             'type': 'string'
+                            'index': 'not_analyzed'
                             },
                         'serviceofferingid': {
                             'type': 'string',
@@ -192,6 +197,7 @@ def get_stats(args):
                             },
                         'serviceofferingname': {
                             'type': 'string'
+                            'index': 'not_analyzed'
                             },
                         'templateid': {
                             'type': 'string',
@@ -199,6 +205,7 @@ def get_stats(args):
                             },
                         'templatedisplaytext': {
                             'type': 'string'
+                            'index': 'not_analyzed'
                             },
                         'zoneid': {
                             'type': 'string',
@@ -218,21 +225,27 @@ def get_stats(args):
                             },
                         'securitygroupname': {
                             'type': 'string'
+                            'index': 'not_analyzed'
                             },
                         '@source_host': {
                             'type': 'string'
+                            'index': 'not_analyzed'
                             },
                         '@source': {
                             'type': 'string'
+                            'index': 'not_analyzed'
                             },
                         '@source_path': {
                             'type': 'string'
+                            'index': 'not_analyzed'
                             },
                         '@type': {
                             'type': 'string'
+                            'index': 'not_analyzed'
                             },
                         '@message': {
                             'type': 'string'
+                            'index': 'not_analyzed'
                             },
                         '@timestamp': {
                             'type': 'date'
