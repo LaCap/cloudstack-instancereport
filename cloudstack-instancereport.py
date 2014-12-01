@@ -156,7 +156,7 @@ def get_stats(args):
                 DOCTYPE: {
                     'properties': {
                         'account': {
-                            'type': 'string'
+                            'type': 'string',
                             'index': 'not_analyzed'
                             },
                         'id': {
@@ -172,15 +172,15 @@ def get_stats(args):
                             'index': 'not_analyzed'
                             },
                         'displayname': {
-                            'type': 'string'
+                            'type': 'string',
                             'index': 'not_analyzed'
                             },
                         'hostname': {
-                            'type': 'string'
+                            'type': 'string',
                             'index': 'not_analyzed'
                             },
                         'instancename': {
-                            'type': 'string'
+                            'type': 'string',
                             'index': 'not_analyzed'
                             },
                         'memory': {
@@ -188,7 +188,7 @@ def get_stats(args):
                             'index': 'not_analyzed'
                             },
                         'name': {
-                            'type': 'string'
+                            'type': 'string',
                             'index': 'not_analyzed'
                             },
                         'serviceofferingid': {
@@ -196,7 +196,7 @@ def get_stats(args):
                             'index': 'not_analyzed'
                             },
                         'serviceofferingname': {
-                            'type': 'string'
+                            'type': 'string',
                             'index': 'not_analyzed'
                             },
                         'templateid': {
@@ -204,7 +204,7 @@ def get_stats(args):
                             'index': 'not_analyzed'
                             },
                         'templatedisplaytext': {
-                            'type': 'string'
+                            'type': 'string',
                             'index': 'not_analyzed'
                             },
                         'zoneid': {
@@ -224,27 +224,27 @@ def get_stats(args):
                             'index': 'not_analyzed'
                             },
                         'securitygroupname': {
-                            'type': 'string'
+                            'type': 'string',
                             'index': 'not_analyzed'
                             },
                         '@source_host': {
-                            'type': 'string'
+                            'type': 'string',
                             'index': 'not_analyzed'
                             },
                         '@source': {
-                            'type': 'string'
+                            'type': 'string',
                             'index': 'not_analyzed'
                             },
                         '@source_path': {
-                            'type': 'string'
+                            'type': 'string',
                             'index': 'not_analyzed'
                             },
                         '@type': {
-                            'type': 'string'
+                            'type': 'string',
                             'index': 'not_analyzed'
                             },
                         '@message': {
-                            'type': 'string'
+                            'type': 'string',
                             'index': 'not_analyzed'
                             },
                         '@timestamp': {
