@@ -280,7 +280,10 @@ def get_stats(args):
             vmzoneid = virtualmachine['zoneid']
             vmzonename = virtualmachine['zonename']
             for nic in virtualmachine['nic']:
-                vmipaddress = nic['ipaddress']
+                if "ipaddress" in nic:
+                    vmipaddress = nic['ipaddress']
+                else:
+                    vmipaddress = ""
                 vmmacaddress = nic['macaddress']
             for securitygroup in virtualmachine['securitygroup']:
                 vmsecuritygroupid = securitygroup['id']
