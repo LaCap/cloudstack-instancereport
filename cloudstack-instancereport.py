@@ -11,17 +11,18 @@ import datetime
 import time
 import socket
 import os
-import sys, getopt, argparse
+import argparse
 try:
     from elasticsearch import Elasticsearch
     from elasticsearch.helpers import bulk
 except ImportError:
     print "It look like elasticsearch-py isn't installed. Please install it using pip install elasticsearch>=1.0.0,<2.0.0 or pip install elasticsearch<1.0.0. See http://elasticsearch-py.readthedocs.org/en/latest/ for more info"
-try:       
+try:
     from raven import Client
 except ImportError:
     Client = None
     pass
+
 
 def main():
     parser = argparse.ArgumentParser(description='This script connect to cloudstack API, list all vms with details and add  document for each VM in a given ES cluster index')
@@ -38,28 +39,29 @@ def main():
 
 
 class BaseClient(object):
+
     def __init__(self, api, apikey, secret):
         self.api = api
         self.apikey = apikey
         self.secret = secret
 
     def request(self, command, args):
-        args['apikey']   = self.apikey
-        args['command']  = command
+        args['apikey'] = self.apikey
+        args['command'] = command
         args['response'] = 'json'
-        
-        params=[]
-        
+
+        params = []
+
         keys = sorted(args.keys())
 
         for k in keys:
             params.append(k + '=' + urllib.quote_plus(args[k]).replace("+", "%20"))
-       
+
         query = '&'.join(params)
 
         signature = base64.b64encode(hmac.new(
-            self.secret, 
-            msg=query.lower(), 
+            self.secret,
+            msg=query.lower(),
             digestmod=hashlib.sha1
         ).digest())
 
@@ -67,9 +69,9 @@ class BaseClient(object):
 
         response = urllib2.urlopen(self.api + '?' + query)
         decoded = json.loads(response.read())
-       
+
         propertyResponse = command.lower() + 'response'
-        if not propertyResponse in decoded:
+        if propertyResponse not in decoded:
             if 'errorresponse' in decoded:
                 raise RuntimeError("ERROR: " + decoded['errorresponse']['errortext'])
             else:
@@ -78,7 +80,7 @@ class BaseClient(object):
         response = decoded[propertyResponse]
         result = re.compile(r"^list(\w+)s").match(command.lower())
 
-        if not result is None:
+        if result is not None:
             type = result.group(1)
 
             if type in response:
@@ -103,12 +105,8 @@ def get_stats(args):
     ACSSECRET = args['acssecret']
     esindex = args['esindex']
     esnodes = args['esnodes']
-    try:
-        SENTRYAPIKEY = args['sentryapikey']
-    except:
-        pass
 
-    DOCTYPE = 'acs-instancereport'    
+    DOCTYPE = 'acs-instancereport'
 
     now = time.strftime("%Y.%m.%d")
     esindex = esindex + '-' + now
@@ -124,7 +122,7 @@ def get_stats(args):
         'details': 'all',
         'page': str(querypage),
         'pagesize': str(querypagesize)
-        })
+    })
     all_virtualmachines = []
     if len(virtualmachines) == querypagesize:
         query_tmp = virtualmachines
@@ -132,11 +130,11 @@ def get_stats(args):
             all_virtualmachines.extend(query_tmp)
             querypage = querypage + 1
             query_tmp = cloudstack.listVirtualMachines({
-                            'listall': 'true',
-                            'details': 'all',
-                            'page': str(querypage),
-                            'pagesize': str(querypagesize)
-                            })
+                'listall': 'true',
+                'details': 'all',
+                'page': str(querypage),
+                'pagesize': str(querypagesize)
+            })
     else:
         all_virtualmachines.extend(virtualmachines)
     virtualmachines = all_virtualmachines
@@ -144,11 +142,11 @@ def get_stats(args):
     ESCLUSTERNODES = esnodes.split()
     es = Elasticsearch(ESCLUSTERNODES)
     scriptpath = os.path.realpath(__file__)
-    
+
     timestamp = datetime.datetime.now()
-    #create index and ignore if already exists
+    # create index and ignore if already exists
     es.indices.create(index=esindex, ignore=400)
-    #create ES mappings
+    # create ES mappings
     es.indices.put_mapping(
         index=esindex,
         doc_type=DOCTYPE,
@@ -158,103 +156,103 @@ def get_stats(args):
                         'account': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'id': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'state': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'cpunumber': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'displayname': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'hostname': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'instancename': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'memory': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'name': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'serviceofferingid': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'serviceofferingname': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'templateid': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'templatedisplaytext': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'zoneid': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'ipaddress': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'macaddress': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'securitygroupid': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         'securitygroupname': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         '@source_host': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         '@source': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         '@source_path': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         '@type': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         '@message': {
                             'type': 'string',
                             'index': 'not_analyzed'
-                            },
+                        },
                         '@timestamp': {
                             'type': 'date'
-                            }
+                        }
                     }
                 }
             }
-    )  
-    #create ES document
+    )
+    # create ES document
     if virtualmachines:
         records = []
         for virtualmachine in virtualmachines:
@@ -292,7 +290,7 @@ def get_stats(args):
                 vmsecuritygroupid = securitygroup['id']
                 vmsecuritygroupname = securitygroup['name']
             sourcehost = socket.gethostname()
-            #body
+            # body
             doc = {
                 'account': vmaccount,
                 'id': vmid,
@@ -322,10 +320,10 @@ def get_stats(args):
             }
             records.append(doc)
 
-        #index documents
+        # index documents
         bulk(es, records, index=esindex, doc_type=DOCTYPE)
 
-#main
+# main
 if __name__ == "__main__":
     args = main()
     try:
@@ -336,5 +334,3 @@ if __name__ == "__main__":
         else:
             client = Client(dsn=args['sentryapikey'])
             client.captureException()
-
-
