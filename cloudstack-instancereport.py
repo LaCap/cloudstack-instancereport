@@ -126,7 +126,7 @@ def get_stats(args):
     all_virtualmachines = []
     if len(virtualmachines) == querypagesize:
         query_tmp = virtualmachines
-        while len(query_tmp) > 0:
+        while len(query_tmp) > 1:
             all_virtualmachines.extend(query_tmp)
             querypage = querypage + 1
             query_tmp = cloudstack.listVirtualMachines({
