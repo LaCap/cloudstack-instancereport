@@ -277,15 +277,18 @@ def get_stats(args):
             vmtemplatedisplaytext = virtualmachine['templatedisplaytext']
             vmzoneid = virtualmachine['zoneid']
             vmzonename = virtualmachine['zonename']
+            vmipaddress = []
+            vmmacaddress = ''
             for nic in virtualmachine['nic']:
                 if 'ipaddress' in nic:
-                    vmipaddress = nic['ipaddress']
-                else:
-                    vmipaddress = ""
+                    vmipaddress.append(nic['ipaddress'])
                 if 'macaddress' in nic:
                     vmmacaddress = nic['macaddress']
-                else:
-                    vmmacaddress = ''
+                if 'secondaryip' in nic:
+                    for secondaryips in nic['secondaryip']:
+                        if 'secondaryip' in secondaryips:
+                            vmipaddress.append(secondaryips['ipaddress'])
+            vmipaddress = str(vmipaddress.strip('[]'))
             for securitygroup in virtualmachine['securitygroup']:
                 vmsecuritygroupid = securitygroup['id']
                 vmsecuritygroupname = securitygroup['name']
