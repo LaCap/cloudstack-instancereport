@@ -286,9 +286,9 @@ def get_stats(args):
                     vmmacaddress = nic['macaddress']
                 if 'secondaryip' in nic:
                     for secondaryips in nic['secondaryip']:
-                        if 'secondaryip' in secondaryips:
-                            vmipaddress.append(secondaryips['ipaddress'])
-            vmipaddress = str(vmipaddress).strip('[]')
+                        vmipaddress.append(secondaryips['ipaddress'])
+            vmipaddress = [str(r) for r in vmipaddress]
+            vmipaddress = str(vmipaddress).replace("'", "").strip('[]')
             for securitygroup in virtualmachine['securitygroup']:
                 vmsecuritygroupid = securitygroup['id']
                 vmsecuritygroupname = securitygroup['name']
