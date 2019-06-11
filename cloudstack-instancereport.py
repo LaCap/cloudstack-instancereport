@@ -154,103 +154,81 @@ def get_stats(args):
                 DOCTYPE: {
                     'properties': {
                         'account': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'id': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'state': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'cpunumber': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'displayname': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'hostname': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'instancename': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'memory': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'name': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'serviceofferingid': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'serviceofferingname': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'templateid': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'templatedisplaytext': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'zoneid': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'ipaddress': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'macaddress': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'securitygroupid': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         'securitygroupname': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         '@source_host': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         '@source': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         '@source_path': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         '@type': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         '@message': {
-                            'type': 'string',
-                            'index': 'not_analyzed'
+                            'type': 'text',
                         },
                         '@timestamp': {
                             'type': 'date'
                         }
                     }
                 }
-            }
+            },
+        include_type_name=True
     )
     # create ES document
     if virtualmachines:
