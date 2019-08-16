@@ -160,25 +160,25 @@ def get_stats(args):
                             'type': 'text',
                         },
                         'state': {
-                            'type': 'text',
+                            'type': 'keyword',
                         },
                         'cpunumber': {
                             'type': 'text',
                         },
                         'displayname': {
-                            'type': 'text',
+                            'type': 'keyword',
                         },
                         'hostname': {
-                            'type': 'text',
+                            'type': 'keyword',
                         },
                         'instancename': {
-                            'type': 'text',
+                            'type': 'keyword',
                         },
                         'memory': {
                             'type': 'text',
                         },
                         'name': {
-                            'type': 'text',
+                            'type': 'keyword',
                         },
                         'serviceofferingid': {
                             'type': 'text',
@@ -195,6 +195,9 @@ def get_stats(args):
                         'zoneid': {
                             'type': 'text',
                         },
+                        'zonename': {
+                            'type': 'keyword',
+                        }
                         'ipaddress': {
                             'type': 'text',
                         },
