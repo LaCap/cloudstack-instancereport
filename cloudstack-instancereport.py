@@ -250,7 +250,7 @@ def get_stats(args):
             include_type_name=True,
         )
     except Exception as e:
-        raise ValueError(f"Error while creating index: {e}")
+        raise ValueError("Error while creating index: " + e)
     # create ES document
     if virtualmachines:
         records = []
