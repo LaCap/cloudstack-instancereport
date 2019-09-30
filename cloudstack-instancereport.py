@@ -273,7 +273,10 @@ def get_stats(args):
             vmserviceofferingid = virtualmachine["serviceofferingid"]
             vmserviceofferingname = virtualmachine["serviceofferingname"]
             vmtemplateid = virtualmachine["templateid"]
-            vmtemplatedisplaytext = virtualmachine["templatedisplaytext"]
+            try:
+                vmtemplatedisplaytext = virtualmachine["templatedisplaytext"]
+            except KeyError:
+                vmtemplatedisplaytext = "Not found"
             vmzoneid = virtualmachine["zoneid"]
             vmzonename = virtualmachine["zonename"]
             vmipaddress = []
